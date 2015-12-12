@@ -9,7 +9,7 @@
 
 ```bash
 sudo su
-apt-get install redis-server
+apt-get install python-dev redis-server
 pip install Flask
 pip install redis
 easy_install apns
@@ -17,13 +17,19 @@ easy_install apns
 
 # Config
 ```python
-redis_password = 'heraldapn' # redis密码
-PE_URL = "http://115.28.27.150/api/pc?uuid=dbd7bb9dca167f98d0741f7067a1b7c715fe1b8c" # 跑操的API URL
+# redis config
+host = 'localhost'
+port = 6379
+db = 0
+password = 'heraldstudio'
 
-identifier = 1 # APN的编号
-expiry = time.time()+3600 # APN 请求最长等待秒数
-priority = 10 # APN的优先级
-api_version = 3.4 # APIList.plist的最新版本
+# PE URL
+PE_URL = "http://115.28.27.150/api/pc?uuid=dbd7bb9dca167f98d0741f7067a1b7c715fe1b8c" # 跑操预告接口URL
+
+# APN config
+expiry = 3600 # APN超时时间
+priority = 10 # APN优先级，默认
+api_version = 3.4 # APIList版本号
 ```
 
 # Run
@@ -35,6 +41,6 @@ chmod +x start.sh stop.sh
 
 # Stop
 
-```
+```bashí
 ./stop.sh
 ```
