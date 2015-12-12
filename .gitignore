@@ -61,3 +61,6 @@ certificate/
 
 # Config
 redis.conf
+
+# redis dump
+*.rdb

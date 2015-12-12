@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import redis
 import config
 
-r = redis.StrictRedis(host='localhost', port=6379, db=0, password=config.redis_password)
+r = redis.StrictRedis(host=config.host, port=config.port, db=config.db, password=config.password)
 
 def get_token_list():
 	result = r.keys()
@@ -13,6 +14,9 @@ def set_token(token):
 
 def get_token(token):
 	result = r.get(token)
+	return result
+def remove_token(token):
+	result = r.delete(token)
 	return result
 
 def remove_all():

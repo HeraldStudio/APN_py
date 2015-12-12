@@ -1,7 +1,8 @@
 #!/bin/bash
 #Start the markdown server
 redis-server redis.conf
-/sbin/service crond start
-python main.py
+service cron start
+crontab task.cron
+screen python main.py
 
 exit 0

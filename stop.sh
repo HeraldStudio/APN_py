@@ -1,6 +1,9 @@
 #!/bin/bash
 #Start the markdown server
-redis-cli -a shutdown
-/sbin/service crond stop
+redis-cli -a heraldstudio shutdown
+service cron restart
+crontab -r
+killall python
+screen -wipe
 
 exit 0
