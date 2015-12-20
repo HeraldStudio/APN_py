@@ -8,8 +8,9 @@ def get_token_list():
 	result = r.keys()
 	return result
 
-def set_token(token):
+def set_token(token, expire):
 	result = r.set(token, 1)
+#	r.expire(token, expire) // now we don't expire
 	return result
 
 def get_token(token):

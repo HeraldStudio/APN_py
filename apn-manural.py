@@ -15,11 +15,12 @@ apns = APNs(use_sandbox=False, cert_file='certificate/cert-pro.pem',
 def logger():
 	logging.basicConfig(level=logging.DEBUG,
 		format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-		datefmt='%a, %d %b %Y %H:%M:%S',
-		filename='./log/debug.log',
-		filemode='w')
+		datefmt='%a, %d %b %Y %H:%M:%S')
 
 def send(tokens, payload):
+        token_feedback = apns.feedback_server.items()
+        for (token_hex, fail_time) in token_feedback:
+            print(token_hex, fail_time)
 	frame = Frame()
 	expiry = time.time() + config.expiry
 	for token in tokens:
@@ -38,6 +39,7 @@ def get_pe_info():
 		result = r.json()
 		pe_info = result.get('content')
 		if pe_info:
+                        print(pe_info)
 			return pe_info
 		else:
 			raise Exception('no content in json result')
@@ -48,7 +50,7 @@ def get_pe_info():
 def update_token():
 	for (token_hex, fail_time) in apns.feedback_server.items():
 		db.set_token(token_hex, fail_time)
-
+		
 def get_token():
 	try:
 		result = db.get_token_list()
