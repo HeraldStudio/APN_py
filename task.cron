@@ -1,1 +1,1 @@
-45 6 * * * python /root/APN_py/apn.py
+45 6 * * * /root/APN_py/push.sh

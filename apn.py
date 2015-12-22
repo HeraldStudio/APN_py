@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
+reload(sys)  
+sys.setdefaultencoding('utf-8')
 import time
 import random
 from apns import APNs, Frame, Payload
@@ -15,9 +18,7 @@ apns = APNs(use_sandbox=False, cert_file='certificate/cert-pro.pem',
 def logger():
 	logging.basicConfig(level=logging.DEBUG,
 		format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
-		datefmt='%a, %d %b %Y %H:%M:%S',
-		filename='./log/debug.log',
-		filemode='w')
+		datefmt='%a, %d %b %Y %H:%M:%S', filename='./log/debug.log', filemode='w')
 
 def send(tokens, payload):
 	frame = Frame()
@@ -28,7 +29,6 @@ def send(tokens, payload):
 
 	apns.gateway_server.register_response_listener(error_handler)
 	apns.gateway_server.send_notification_multiple(frame)
-
 
 def get_pe_info():
 	try:
@@ -48,7 +48,7 @@ def get_pe_info():
 def update_token():
 	for (token_hex, fail_time) in apns.feedback_server.items():
 		db.set_token(token_hex, fail_time)
-
+		
 def get_token():
 	try:
 		result = db.get_token_list()
